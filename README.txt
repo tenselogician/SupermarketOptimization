@@ -40,7 +40,7 @@ This bottleneck is a known problem for Apriori and various optimizations such as
 3)	More crucially, I remove the need to loop over all transactions (~ 22,000 total transactions after transactions of < 3 items have been removed)  by creating an “inverted index” of transactions. Inverted index is a map where each item is key and the possible transactions that  contain this item is the value.  Example:  “39: [ 0, 1, 2, 3,..]” means item 39 is contained in transactions with id 0, 1, 2, 3    With this created, we can just look up for each item in a candidate set all the transactions that involved this item.  Doing this for all the items in a candidate set and finding the transactions they have in common is another way of checking if candidate set is a subset of transaction.  If every item in the candidate contains in its index some transection t, then the candidate is a subset of items purchased in t.  This optimization, while still requires a loop of the form:
           “for candidate_Set in candidate_sets:
 		for item in candidate_set: “
-	involves much fewer iterations, as the number of individual items in a candidate set is never as great as the number of transactions we had to loop over originally. This brings the running time down to 39 minutes.    
+	involves much fewer iterations, as the number of individual items in a candidate set is never as great as the number of transactions we had to loop over originally. This brings the running time down to 30 minutes.    
 I can imagine many more additional optimizations such as computing subsets in a more efficient manner – there may be some way to do this a la dynamic programming where we leverage created smaller sets to grow subsets.   There could be others such as using a trie map. Finally, the data set is in a sorted order, something I am not currently leveraging, but it may be relevant.
 
 4. Example.
@@ -75,6 +75,7 @@ https://github.com/tenselogician/SupermarketOptimization.git
 
 python AprioriForLargeData.py  -i myfile.txt -s 4
 
+it outputs a file "frequent_sets_25k.txt" that is uploaded as well onto github in zipped form.
 
 5. Conclusion.
 
