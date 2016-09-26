@@ -3,12 +3,13 @@ import time
 import itertools
 from sys import exit, exc_info
 from itertools import combinations
-from collections import defaultdict
 from optparse import OptionParser
 
 class Apriori:
     """Algorithm computes frequent itemsets, given a data file
-    and a support parameter.
+    and a support parameter. Optimizes for large data sets.
+    approximate runtime ~ 30min on Mac book 16 GB 1600 MHz DDR3
+    and 2.8 GHz Intel Core i7.
     """
 
     def __init__(self):
